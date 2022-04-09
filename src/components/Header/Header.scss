@@ -12,7 +12,6 @@
         .header__title {
             font-weight: 700;
             line-height: 24px;
-            color: #000000;
         }
         .header__subtitle {
             font-size: 14px;
@@ -33,38 +32,16 @@
             font-size: 14px;
             line-height: 17px;
             color: #5c5c5c;
-            svg {
+            img {
                 margin-right: 10px;
-            }
-            &:hover {
-                svg {
-                    path {
-                        stroke: lighten($color: #9b9b9b, $amount: 10%);
-                    }
-                }
-                color: lighten($color: #5c5c5c, $amount: 10%);
             }
         }
         .header__favorite {
             margin-right: 30px;
             cursor: pointer;
-            &:hover {
-                svg {
-                    path {
-                        fill: lighten($color: #9b9b9b, $amount: 10%);
-                    }
-                }
-            }
         }
         .header__account {
             cursor: pointer;
-            &:hover {
-                svg {
-                    path {
-                        fill: lighten($color: #9b9b9b, $amount: 10%);
-                    }
-                }
-            }
         }
     }
 }
