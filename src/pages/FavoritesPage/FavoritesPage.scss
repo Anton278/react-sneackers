@@ -1,0 +1,17 @@
+.favorite-page {
+    .favorite-page__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        span {
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 39px;
+            color: #000;
+            margin-left: 21px;
+        }
+        img {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.custom-btn {
+    width: 100%;
+    height: 55px;
+    padding: 0;
+    position: relative;
+    border: none;
+    background-color: #9dd458;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #ffffff;
+    cursor: pointer;
+
+    &:active {
+        background-color: darken($color: #9dd458, $amount: 10%);
+    }
+    img {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.15s ease-in-out;
+    }
+    .custom-btn__arrow-left {
+        left: 25px;
+    }
+    .custom-btn__arrow-right {
+        right: 60px;
+    }
+    &:hover {
+        background-color: lighten($color: #9dd458, $amount: 10%);
+        .custom-btn__arrow-left {
+            transform: translate(-4px, -50%);
+        }
+        .custom-btn__arrow-right {
+            transform: translate(7px, -50%);
+        }
+    }
+}

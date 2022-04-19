@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import OrdersPage from "./pages/OrdersPage";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import axios from "axios";
+
+export type SneackersItem = {
+    name: string;
+    price: number;
+    img: string;
+};
+
+const App = () => {
+    if (!localStorage.getItem("favorites")) {
+        localStorage.setItem("favorites", JSON.stringify([]));
+    }
+    if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+    }
+
+    const favorites = useSelector((state: any) => state.favoritesReducer);
+    const cart = useSelector((state: any) => state.cartReducer.cart);
+    useEffect(() => {
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    }, [favorites]);
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart]);
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/favorites" element={<FavoritesPage />} />
+                <Route path="/orders" element={<OrdersPage />} />
+            </Routes>
+        </BrowserRouter>
+    );
+};
 
 export default App;

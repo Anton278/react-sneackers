@@ -1,0 +1,20 @@
+.orders-page__header {
+    display: flex;
+    align-items: center;
+    span {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 39px;
+        color: #000;
+        margin-left: 21px;
+    }
+    img {
+        cursor: pointer;
+    }
+    .orders-page__sneackers-wrapp {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 40px;
+        row-gap: 40px;
+    }
+}

@@ -1,29 +1,33 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./Header.scss";
-import logo from "./img/logo.png";
-import cartImg from "./img/cart.svg";
-import cartHoverImg from "./img/cart-hover.svg";
-import heartImg from "./img/heart.svg";
-import heartHoverImg from "./img/heart-hover.svg";
-import accountImg from "./img/account.svg";
-import accountHoverImg from "./img/account-hover.svg";
-import { useState } from "react";
-import { SneackersItem } from "../../App";
+import logo from "./logo.png";
+import {
+    SET_CART_IMG_HOVER,
+    SET_CART_IMG_PRIMARY,
+    SET_SHOW_CART,
+    SET_FAVORITES_PAGE_IMG_HOVER,
+    SET_FAVORITES_PAGE_IMG_PRIMARY,
+    SET_ORDERS_PAGE_IMG_HOVER,
+    SET_ORDERS_PAGE_IMG_PRIMARY,
+} from "../../actions";
 import { useNavigate } from "react-router-dom";
 
-type HeaderProps = {
-    cart: Array<SneackersItem>;
-    setShowCart?: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header = ({ setShowCart, cart }: HeaderProps) => {
+const Header = () => {
     const navigate = useNavigate();
-    const [cartIcon, setCartIcon] = useState(cartImg);
-    const [favoriteIcon, setFavoriteIcon] = useState(heartImg);
-    const [accountIcon, setAccountIcon] = useState(accountImg);
+    const dispatch = useDispatch();
+    const cart = useSelector((state: any) => state.cartReducer.cart);
+    const cartImg = useSelector((state: any) => state.headerReducer.cartImg);
+    const favoritesPageImg = useSelector(
+        (state: any) => state.headerReducer.favoritesPageImg
+    );
+    const ordersPageImg = useSelector(
+        (state: any) => state.headerReducer.ordersPageImg
+    );
+    const showCart = useSelector((state: any) => state.headerReducer.showCart);
 
-    const calcTotalPrice = (): number => {
+    const getTotalPrice = () => {
         let totalPrice: number = 0;
-        cart.forEach((sneackers: SneackersItem) => {
+        cart.forEach((sneackers: any) => {
             totalPrice += sneackers.price;
         });
         return totalPrice;
@@ -44,33 +48,46 @@ const Header = ({ setShowCart, cart }: HeaderProps) => {
                 <div className="header__buttons">
                     <div
                         className="header__cart"
-                        onMouseOver={() => setCartIcon(cartHoverImg)}
-                        onMouseOut={() => setCartIcon(cartImg)}
-                        onClick={() => {
-                            if (typeof setShowCart === "function") {
-                                setShowCart((prevValue: boolean) => !prevValue);
-                            }
-                        }}
+                        onMouseOver={() =>
+                            dispatch({ type: SET_CART_IMG_HOVER })
+                        }
+                        onMouseOut={() =>
+                            dispatch({ type: SET_CART_IMG_PRIMARY })
+                        }
+                        onClick={() =>
+                            dispatch({
+                                type: SET_SHOW_CART,
+                                payload: !showCart,
+                            })
+                        }
                     >
-                        <img src={cartIcon} alt="cart" width={18} height={18} />
-                        {calcTotalPrice()} грн.
+                        <img src={cartImg} alt="cart" width={18} height={18} />
+                        {getTotalPrice()} грн.
                     </div>
                     <img
                         className="header__favorite"
-                        src={favoriteIcon}
+                        src={favoritesPageImg}
                         alt="favorite"
-                        onMouseOver={() => setFavoriteIcon(heartHoverImg)}
-                        onMouseOut={() => setFavoriteIcon(heartImg)}
-                        onClick={() => navigate("/favorite")}
+                        onMouseOver={() =>
+                            dispatch({ type: SET_FAVORITES_PAGE_IMG_HOVER })
+                        }
+                        onMouseOut={() =>
+                            dispatch({ type: SET_FAVORITES_PAGE_IMG_PRIMARY })
+                        }
+                        onClick={() => navigate("/favorites")}
                         width={21}
                         height={19}
                     />
                     <img
                         className="header__account"
-                        src={accountIcon}
+                        src={ordersPageImg}
                         alt="account"
-                        onMouseOver={() => setAccountIcon(accountHoverImg)}
-                        onMouseOut={() => setAccountIcon(accountImg)}
+                        onMouseOver={() =>
+                            dispatch({ type: SET_ORDERS_PAGE_IMG_HOVER })
+                        }
+                        onMouseOut={() =>
+                            dispatch({ type: SET_ORDERS_PAGE_IMG_PRIMARY })
+                        }
                         onClick={() => navigate("/orders")}
                         width={20}
                         height={20}

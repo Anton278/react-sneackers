@@ -1,0 +1,21 @@
+.empty-page-notification {
+    width: 290px;
+    text-align: center;
+    margin: 250px auto 0 auto;
+    padding-bottom: 450px;
+    .empty-page-notification__header {
+        margin-bottom: 24px;
+    }
+    .empty-page-notification__title {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 11px;
+    }
+    .empty-page-notification__subtitle {
+        font-size: 16px;
+        line-height: 19px;
+        opacity: 0.4;
+        margin-bottom: 41px;
+    }
+}

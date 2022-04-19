@@ -1,0 +1,28 @@
+.cart-item {
+    border-radius: 20px;
+    border: 1px solid #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 20px;
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+    .cart-item__img {
+        margin-right: 21px;
+    }
+    .cart-item__text {
+        font-size: 14px;
+        line-height: 17px;
+        p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+    }
+    .cart-item__close-btn {
+        margin-left: 12px;
+        flex-shrink: 0;
+        cursor: pointer;
+    }
+}
