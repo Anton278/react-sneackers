@@ -3,45 +3,50 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .header__logo {
+    .header__col {
         display: flex;
         align-items: center;
     }
-    .header__text {
+    .header__titles {
         margin-left: 16px;
         .header__title {
-            font-weight: 700;
+            margin: 0;
             line-height: 24px;
         }
         .header__subtitle {
-            font-size: 14px;
+            margin: 0;
+            font-size: 0.7rem;
             line-height: 17px;
             color: #9d9d9d;
         }
     }
 
-    .header__buttons {
+    .header__btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
         display: flex;
         align-items: center;
-        .header__cart {
-            cursor: pointer;
-            margin-right: 30px;
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 17px;
-            color: #5c5c5c;
-            img {
-                margin-right: 10px;
-            }
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #5c5c5c;
+        margin-right: 30px;
+        svg {
+            margin-right: 0.5rem;
         }
-        .header__favorite {
-            margin-right: 30px;
-            cursor: pointer;
+        &:hover svg path {
+            stroke: lighten($color: #9b9b9b, $amount: 10%);
         }
-        .header__account {
-            cursor: pointer;
+    }
+    .header__img-btn {
+        cursor: pointer;
+        &:last-of-type {
+            margin-left: 30px;
+        }
+        &:hover path {
+            fill: lighten($color: #9b9b9b, $amount: 10%);
         }
     }
 }
