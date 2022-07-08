@@ -1,31 +1,25 @@
-import { useDispatch, useSelector } from "react-redux";
+import "./MainPage.scss";
+import { useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import Header from "../../components/Header";
 import Cart from "../../components/Cart";
 import Slider from "../../components/Slider";
-import SneackersBlock from "../../components/SneackersBlock";
-import { getSneackers } from "../../actions";
-import { useEffect } from "react";
-import "./MainPage.scss";
+import Card from "../../components/Card";
+import { selectShowCart } from "../../redux/cart/selectors";
+import {
+    selectStatus,
+    selectProducts,
+    selectErrorTypeAndMessage,
+} from "../../redux/products/selectors";
+import { IProduct } from "../../assets/types";
 
-interface ISneackers {
-    name: string;
-    price: number;
-    img: string;
-    id: number;
-}
+const MainPage = () => {
+    const showCart = useSelector(selectShowCart);
+    const status = useSelector(selectStatus);
+    const products = useSelector(selectProducts);
+    const errorTypeAndMessage = useSelector(selectErrorTypeAndMessage);
 
-const MainPage = (props: any) => {
-    const dispatch = useDispatch();
-    const showCart = useSelector((state: any) => state.headerReducer.showCart);
-    const isLoading = useSelector(
-        (state: any) => state.sneackersReducer.isLoading
-    );
-    const sneackers = useSelector(
-        (state: any) => state.sneackersReducer.sneackers
-    );
-
-    const renderLoadingCards = () => {
+    const renderLoadingCards = (): JSX.Element => {
         return (
             <>
                 <Loader />
@@ -44,32 +38,42 @@ const MainPage = (props: any) => {
         );
     };
 
-    useEffect(() => {
-        dispatch(getSneackers());
-    }, []);
-
-    return (
-        <div className="wrapp">
-            <Header />
-            {showCart && <Cart />}
-            <main>
-                <Slider />
-                <div className="sneackers-block-wrapp">
-                    {isLoading
-                        ? renderLoadingCards()
-                        : sneackers.map((sneackers: ISneackers) => (
-                              <SneackersBlock
-                                  name={sneackers.name}
-                                  price={sneackers.price}
-                                  img={sneackers.img}
-                                  key={sneackers.id}
-                                  id={sneackers.id}
-                              />
-                          ))}
+    if (status === "error") {
+        return (
+            <div className="wrapp">
+                <div className="error">
+                    <p className="error__head">{errorTypeAndMessage}</p>
+                    <p className="error__body">Sorry, try again later.</p>
                 </div>
-            </main>
-        </div>
-    );
+            </div>
+        );
+    } else if (status === "loading") {
+        return (
+            <div className="wrapp">
+                <Header />
+                {showCart && <Cart />}
+                <main>
+                    <Slider />
+                    <div className="products-wrapp">{renderLoadingCards()}</div>
+                </main>
+            </div>
+        );
+    } else {
+        return (
+            <div className="wrapp">
+                <Header />
+                {showCart && <Cart />}
+                <main>
+                    <Slider />
+                    <div className="products-wrapp">
+                        {products.map((product: IProduct) => (
+                            <Card key={product.id} {...product} />
+                        ))}
+                    </div>
+                </main>
+            </div>
+        );
+    }
 };
 
 export default MainPage;

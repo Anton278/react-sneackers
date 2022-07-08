@@ -1,8 +1,17 @@
-.sneackers-block-wrapp {
+.products-wrapp {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 40px;
     row-gap: 40px;
     margin-top: 36px;
-    // background-color: #000;
+}
+.error {
+    margin: 0 1rem;
+    .error__head {
+        color: #dc3545;
+        font-weight: bold;
+    }
+}
+main {
+    padding: 45px 60px;
 }
