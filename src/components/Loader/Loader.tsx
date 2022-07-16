@@ -1,6 +1,6 @@
 import ContentLoader from "react-content-loader";
 
-const Loader = () => {
+const Loader = (): JSX.Element => {
     const styles = {
         border: "1px solid #F3F3F3",
         width: "210px",
