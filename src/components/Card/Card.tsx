@@ -1,5 +1,5 @@
 import "./Card.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../redux/store";
 import { ICartItem, IProduct } from "../../assets/types";
@@ -35,39 +35,29 @@ const Card = (props: IProduct): JSX.Element => {
         return isProductInCart ? addFilled : add;
     });
 
-    const favoriteButtonHandler = (): void => {
+    const toggleAsFavorite = (): void => {
         if (favoriteButtonImg === favoriteFilled) {
             dispatch(removeFavorite(id));
         } else if (favoriteButtonImg === favoriteHover) {
             dispatch(addFavorite({ name, price, img, id }));
         }
-        setFavoriteButtonImg((prevImg: string) => {
-            if (prevImg === favoriteHover) {
-                return favoriteFilled;
-            } else if (prevImg === favoriteFilled) {
-                return favoriteHover;
-            } else {
-                return prevImg;
-            }
-        });
     };
-    const addButtonHandler = (): void => {
-        dispatch(
-            addProduct({
-                name,
-                img,
-                price,
-                id,
-                count: 1,
-            })
+
+    useEffect(() => {
+        const isProductInCart = cart.find(
+            (product: ICartItem) => product.id === id
         );
-        setAddButtonImg((prevImg: string) => {
-            if (prevImg === addHover) {
-                return addFilled;
-            }
-            return prevImg;
-        });
-    };
+        isProductInCart ? setAddButtonImg(addFilled) : setAddButtonImg(add);
+    }, [cart]);
+
+    useEffect(() => {
+        const isProductFavorite = favorites.find(
+            (product: IProduct) => product.id === id
+        );
+        isProductFavorite
+            ? setFavoriteButtonImg(favoriteFilled)
+            : setFavoriteButtonImg(favorite);
+    }, [favorites]);
 
     return (
         <div className="card">
@@ -85,7 +75,7 @@ const Card = (props: IProduct): JSX.Element => {
                             ? setFavoriteButtonImg(favorite)
                             : null
                     }
-                    onClick={favoriteButtonHandler}
+                    onClick={toggleAsFavorite}
                 >
                     <img
                         className="card__btn-img"
@@ -112,7 +102,14 @@ const Card = (props: IProduct): JSX.Element => {
                     onMouseLeave={() =>
                         addButtonImg === addHover ? setAddButtonImg(add) : null
                     }
-                    onClick={addButtonHandler}
+                    onClick={() =>
+                        dispatch(
+                            addProduct({
+                                ...props,
+                                count: 1,
+                            })
+                        )
+                    }
                 >
                     <img
                         className="card__add-img"
