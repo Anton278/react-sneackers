@@ -1,18 +1,14 @@
 import "./App.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import OrdersPage from "./pages/OrdersPage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-
-import axios from "axios";
-
-export type SneackersItem = {
-    name: string;
-    price: number;
-    img: string;
-};
+import { selectCart } from "./redux/cart/selectors";
+import { useAppDispatch } from "./redux/store";
+import { getProducts } from "./redux/asyncActions";
+import { selectFavorites } from "./redux/favorites/selector";
 
 const App = () => {
     if (!localStorage.getItem("favorites")) {
@@ -22,23 +18,29 @@ const App = () => {
         localStorage.setItem("cart", JSON.stringify([]));
     }
 
-    const favorites = useSelector((state: any) => state.favoritesReducer);
-    const cart = useSelector((state: any) => state.cartReducer.cart);
-    useEffect(() => {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-    }, [favorites]);
+    const cart = useSelector(selectCart);
+    const favorites = useSelector(selectFavorites);
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
+    useEffect(() => {
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    }, [favorites]);
+
+    useEffect(() => {
+        dispatch(getProducts());
+    }, []);
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/favorites" element={<FavoritesPage />} />
                 <Route path="/orders" element={<OrdersPage />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 };
 
