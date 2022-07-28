@@ -8,12 +8,12 @@ import { selectCart } from "../../redux/cart/selectors";
 import { addFavorite, removeFavorite } from "../../redux/favorites/slice";
 import { addProduct } from "../../redux/cart/slice";
 
-import add from "./add.svg";
-import addHover from "./add-hover.svg";
-import addFilled from "./add-filled.svg";
-import favorite from "./favorite.svg";
-import favoriteHover from "./favorite-hover.svg";
-import favoriteFilled from "./favorite-filled.svg";
+import add from "../../assets/img/add.svg";
+import addHover from "../../assets/img/add-hover.svg";
+import addFilled from "../../assets/img/add-filled.svg";
+import favorite from "../../assets/img/favorite.svg";
+import favoriteHover from "../../assets/img/favorite-hover.svg";
+import favoriteFilled from "../../assets/img/favorite-filled.svg";
 
 const Card = (props: IProduct): JSX.Element => {
     const { name, price, img, id } = props;
@@ -124,4 +124,4 @@ const Card = (props: IProduct): JSX.Element => {
     );
 };
 
-export default Card;
+export { Card };
