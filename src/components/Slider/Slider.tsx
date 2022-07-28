@@ -1,5 +1,5 @@
-import sliderImg1 from "./slider-img-1.png";
-import arrowButton from "./arrow-button.svg";
+import sliderImg1 from "../../assets/img/slider-img-1.png";
+import forward from "../../assets/img/forward.svg";
 import "./Slider.scss";
 
 const Slider = () => {
@@ -12,15 +12,18 @@ const Slider = () => {
                 width="100%"
                 height="100%"
             />
-            <img
-                className="slider__btn"
-                src={arrowButton}
-                alt="arrow-button"
-                width={35}
-                height={35}
-            />
+            <button className="slider__move-forward">
+                {/* find another img */}
+                <img
+                    className="slider__move-forward-img"
+                    src={forward}
+                    alt="arrow-button"
+                    width={35}
+                    height={35}
+                />
+            </button>
         </div>
     );
 };
 
-export default Slider;
+export { Slider };
