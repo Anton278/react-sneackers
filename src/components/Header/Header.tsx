@@ -1,6 +1,6 @@
 import "./Header.scss";
 import { useSelector } from "react-redux";
-import logo from "./logo.png";
+import logo from "../../assets/img/logo.png";
 import { useNavigate } from "react-router-dom";
 import { selectTotalPrice } from "../../redux/cart/selectors";
 import { useAppDispatch } from "../../redux/store";
@@ -51,4 +51,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export { Header };
