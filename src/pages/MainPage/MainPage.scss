@@ -1,17 +1,7 @@
 .products-wrapp {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 40px;
-    row-gap: 40px;
-    margin-top: 36px;
-}
-.error {
-    margin: 0 1rem;
-    .error__head {
-        color: #dc3545;
-        font-weight: bold;
-    }
-}
-main {
-    padding: 45px 60px;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin: 2rem 3rem;
 }
