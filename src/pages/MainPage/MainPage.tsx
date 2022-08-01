@@ -1,79 +1,63 @@
 import "./MainPage.scss";
+
+import { Loader } from "../../components/Loader";
+import { Header } from "../../components/Header";
+import { Cart } from "../../components/Cart";
+import { Slider } from "../../components/Slider";
+import { Card } from "../../components/Card";
+import { Error } from "../../components/Error";
+import { Wrapp } from "../../components/Wrapp";
+
 import { useSelector } from "react-redux";
-import Loader from "../../components/Loader";
-import Header from "../../components/Header";
-import Cart from "../../components/Cart";
-import Slider from "../../components/Slider";
-import Card from "../../components/Card";
 import { selectShowCart } from "../../redux/cart/selectors";
 import {
-    selectStatus,
+    selectProductsStatus,
     selectProducts,
-    selectErrorTypeAndMessage,
+    selectErrorText,
 } from "../../redux/products/selectors";
+
 import { IProduct } from "../../assets/types";
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
     const showCart = useSelector(selectShowCart);
-    const status = useSelector(selectStatus);
+    const productsStatus = useSelector(selectProductsStatus);
     const products = useSelector(selectProducts);
-    const errorTypeAndMessage = useSelector(selectErrorTypeAndMessage);
+    const getProductsErrorText = useSelector(selectErrorText);
 
-    const renderLoadingCards = (): JSX.Element => {
+    if (productsStatus === "error") {
         return (
-            <>
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-                <Loader />
-            </>
+            <Wrapp>
+                <Error>{getProductsErrorText}</Error>
+            </Wrapp>
         );
-    };
-
-    if (status === "error") {
+    } else if (productsStatus === "loading") {
         return (
-            <div className="wrapp">
-                <div className="error">
-                    <p className="error__head">{errorTypeAndMessage}</p>
-                    <p className="error__body">Sorry, try again later.</p>
+            <Wrapp>
+                <Header />
+                {showCart && <Cart />}
+                <Slider />
+                <div className="products-wrapp">
+                    {/* for rendering 12 loading cards */}
+                    {Array.from({ length: 12 }, (num: number) => (
+                        <Loader key={num} />
+                    ))}
                 </div>
-            </div>
+            </Wrapp>
         );
-    } else if (status === "loading") {
+    } else if (productsStatus === "success") {
         return (
-            <div className="wrapp">
+            <Wrapp>
                 <Header />
                 {showCart && <Cart />}
-                <main>
-                    <Slider />
-                    <div className="products-wrapp">{renderLoadingCards()}</div>
-                </main>
-            </div>
+                <Slider />
+                <div className="products-wrapp">
+                    {products.map((product: IProduct) => (
+                        <Card key={product.id} {...product} />
+                    ))}
+                </div>
+            </Wrapp>
         );
-    } else {
-        return (
-            <div className="wrapp">
-                <Header />
-                {showCart && <Cart />}
-                <main>
-                    <Slider />
-                    <div className="products-wrapp">
-                        {products.map((product: IProduct) => (
-                            <Card key={product.id} {...product} />
-                        ))}
-                    </div>
-                </main>
-            </div>
-        );
-    }
+    } else return null;
 };
 
-export default MainPage;
+export { MainPage };
