@@ -1,0 +1,30 @@
+.custom-btn {
+    height: 2.75rem;
+    padding: 0;
+    position: relative;
+    border: none;
+    background-color: #9dd458;
+    border-radius: 0.9rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    line-height: 19px;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .custom-btn__left-arrow {
+        margin-right: 10px;
+    }
+    .custom-btn__right-arrow {
+        margin-left: 10px;
+    }
+
+    &:active {
+        background-color: darken($color: #9dd458, $amount: 10%);
+    }
+    &:hover {
+        background-color: lighten($color: #9dd458, $amount: 10%);
+    }
+}
