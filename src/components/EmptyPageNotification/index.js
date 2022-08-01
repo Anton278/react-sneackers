@@ -1,3 +1,3 @@
-import EmptyPageNotification from "./EmptyPageNotification";
+import { EmptyPageNotification } from "./EmptyPageNotification";
 
-export default EmptyPageNotification;
+export { EmptyPageNotification };
