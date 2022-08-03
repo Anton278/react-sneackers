@@ -1,0 +1,18 @@
+.page-title {
+    display: flex;
+    align-items: center;
+    margin: 2rem 3rem 0;
+    &__btn-back {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        cursor: pointer;
+    }
+    &__title {
+        margin: 0;
+        font-size: 1.6rem;
+        line-height: 39px;
+        margin-left: 1.05rem;
+        font-weight: 700;
+    }
+}
