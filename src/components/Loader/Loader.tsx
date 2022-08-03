@@ -27,4 +27,4 @@ const Loader = (): JSX.Element => {
     );
 };
 
-export default Loader;
+export { Loader };
