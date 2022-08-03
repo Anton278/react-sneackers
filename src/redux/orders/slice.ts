@@ -15,9 +15,6 @@ const orders = createSlice({
     name: "order",
     initialState,
     reducers: {
-        setOrders(state, action: PayloadAction<Array<ICartItem>>) {
-            // state.orders = action.payload;
-        },
         setSendOrderStatus(state, action: PayloadAction<"idle">) {
             state.sendOrderStatus = action.payload;
         },
