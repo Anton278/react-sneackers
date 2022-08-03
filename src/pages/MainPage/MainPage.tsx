@@ -1,5 +1,3 @@
-import "./MainPage.scss";
-
 import { Loader } from "../../components/Loader";
 import { Header } from "../../components/Header";
 import { Cart } from "../../components/Cart";
