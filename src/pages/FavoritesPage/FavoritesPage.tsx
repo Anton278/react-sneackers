@@ -1,7 +1,6 @@
 import { Header } from "../../components/Header";
 import { Wrapp } from "../../components/Wrapp";
 import { ProductsWrapp } from "../../components/ProductsWrapp";
-import "./FavoritesPage.scss";
 import { Card } from "../../components/Card";
 import { EmptyPageNotification } from "../../components/EmptyPageNotification";
 import { useSelector } from "react-redux";
