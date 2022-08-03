@@ -1,16 +1,19 @@
-.favorite-page {
-    .favorite-page__header {
+.fav-page {
+    .fav-page__header {
         display: flex;
         align-items: center;
-        margin-bottom: 40px;
-        span {
-            font-weight: 700;
-            font-size: 32px;
+        margin: 2rem 3rem 0;
+        .fav-page__title {
+            margin: 0;
+            font-size: 1.6rem;
             line-height: 39px;
-            color: #000;
-            margin-left: 21px;
+            margin-left: 1.05rem;
+            font-weight: 700;
         }
-        img {
+        .fav-page__btn {
+            border: none;
+            background-color: transparent;
+            padding: 0;
             cursor: pointer;
         }
     }

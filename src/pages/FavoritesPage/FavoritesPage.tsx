@@ -1,74 +1,64 @@
-import Header from "../../components/Header";
+import { Header } from "../../components/Header";
+import { Wrapp } from "../../components/Wrapp";
+import { ProductsWrapp } from "../../components/ProductsWrapp";
 import buttonBackImg from "../../assets/img/back.svg";
 import buttonBackHoverImg from "../../assets/img/back-hover.svg";
 import { useState } from "react";
 import "./FavoritesPage.scss";
 import { useNavigate } from "react-router-dom";
-import SneackersBlock from "../../components/SneackersBlock";
-import EmptyPageNotification from "../../components/EmptyPageNotification";
+import { Card } from "../../components/Card";
+import { EmptyPageNotification } from "../../components/EmptyPageNotification";
 import { useSelector } from "react-redux";
-import Cart from "../../components/Cart";
-
-interface ISneackers {
-    name: string;
-    img: string;
-    price: number;
-    id: number;
-}
+import { Cart } from "../../components/Cart";
+import { selectFavorites } from "../../redux/favorites/selector";
+import { selectShowCart } from "../../redux/cart/selectors";
+import { IProduct } from "../../assets/types";
 
 const FavoritesPage = () => {
     const [buttonBack, setButtonBack] = useState(buttonBackImg);
     const navigate = useNavigate();
-    const favorites = useSelector((state: any) => state.favoritesReducer);
-    const showCart = useSelector((state: any) => state.headerReducer.showCart);
+    const favorites = useSelector(selectFavorites);
+    const showCart = useSelector(selectShowCart);
 
-    if (!favorites.length) {
-        return (
-            <div className="wrapp">
-                <Header />
-                {showCart && <Cart />}
-                <EmptyPageNotification page="favorite" />
-            </div>
-        );
-    } else {
-        return (
-            <div className="wrapp">
-                <Header />
-                {showCart && <Cart />}
-                <main>
-                    <div className="favorite-page">
-                        <div className="favorite-page__header">
-                            <img
-                                src={buttonBack}
-                                alt="button-back"
-                                onMouseOver={() => {
-                                    setButtonBack(buttonBackHoverImg);
-                                }}
-                                onMouseOut={() => {
-                                    setButtonBack(buttonBackImg);
-                                }}
-                                onClick={() => {
-                                    navigate("/");
-                                }}
-                            />
-                            <span>Мои закладки</span>
-                        </div>
-                        <div className="sneackers-block-wrapp">
-                            {favorites.map((sneackers: ISneackers) => (
-                                <SneackersBlock
-                                    key={sneackers.id}
-                                    name={sneackers.name}
-                                    price={sneackers.price}
-                                    img={sneackers.img}
-                                    id={sneackers.id}
+    return (
+        <Wrapp>
+            <Header />
+            {showCart && <Cart />}
+            <div className="fav-page">
+                {favorites.length ? (
+                    <>
+                        <div className="fav-page__header">
+                            <button type="button" className="fav-page__btn">
+                                <img
+                                    src={buttonBack}
+                                    alt="button-back"
+                                    width={35}
+                                    height={35}
+                                    onMouseOver={() => {
+                                        setButtonBack(buttonBackHoverImg);
+                                    }}
+                                    onMouseOut={() => {
+                                        setButtonBack(buttonBackImg);
+                                    }}
+                                    onClick={() => {
+                                        navigate("/");
+                                    }}
                                 />
-                            ))}
+                            </button>
+                            <h2 className="fav-page__title">Мои закладки</h2>
                         </div>
-                    </div>
-                </main>
+                        <ProductsWrapp>
+                            {favorites.map((product: IProduct) => (
+                                <Card {...product} key={product.id} />
+                            ))}
+                        </ProductsWrapp>
+                    </>
+                ) : (
+                    <EmptyPageNotification page="favorites" />
+                )}
             </div>
-        );
-    }
+        </Wrapp>
+    );
 };
 
-export default FavoritesPage;
+export { FavoritesPage };
