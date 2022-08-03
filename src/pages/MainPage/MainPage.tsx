@@ -35,7 +35,7 @@ const MainPage: React.FC = () => {
                 {showCart && <Cart />}
                 <Slider />
                 <div className="products-wrapp">
-                    {/* for rendering 12 loading cards */}
+                    {/* for rendering 12 loading cards, here issue with key prop */}
                     {Array.from({ length: 12 }, (num: number) => (
                         <Loader key={num} />
                     ))}
