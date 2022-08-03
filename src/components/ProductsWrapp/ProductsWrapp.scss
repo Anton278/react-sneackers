@@ -1,0 +1,7 @@
+.products-wrapp {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin: 2rem 3rem;
+}
