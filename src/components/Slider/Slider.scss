@@ -1,7 +1,11 @@
 .slider {
+    margin: 45px 60px;
     position: relative;
     height: 300px;
-    .slider__btn {
+    .slider__move-forward {
+        border: none;
+        padding: 0;
+        background-color: transparent;
         position: absolute;
         top: calc(50% - 17px);
         right: -17px;
