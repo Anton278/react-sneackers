@@ -15,8 +15,16 @@ import favorite from "../../assets/img/favorite.svg";
 import favoriteHover from "../../assets/img/favorite-hover.svg";
 import favoriteFilled from "../../assets/img/favorite-filled.svg";
 
-const Card = (props: IProduct): JSX.Element => {
-    const { name, price, img, id } = props;
+type CardProps = {
+    name: string;
+    img: string;
+    price: number;
+    id: number;
+    count?: number;
+};
+
+const Card: React.FC<CardProps> = (props) => {
+    const { name, price, img, id, count } = props;
 
     const dispatch = useAppDispatch();
     const favorites = useSelector(selectFavorites);
@@ -89,36 +97,47 @@ const Card = (props: IProduct): JSX.Element => {
             </div>
             <p className="card__title">{name}</p>
             <div className="card__footer">
-                <div className="card__col">
-                    <p>Цена:</p>
-                    <b>{price} грн.</b>
+                <div className="row">
+                    <div className="card__col">
+                        <p>Цена:</p>
+                        <b>{price} грн.</b>
+                    </div>
+                    <button
+                        type="button"
+                        className="card__add-btn"
+                        onMouseEnter={() =>
+                            addButtonImg === add
+                                ? setAddButtonImg(addHover)
+                                : null
+                        }
+                        onMouseLeave={() =>
+                            addButtonImg === addHover
+                                ? setAddButtonImg(add)
+                                : null
+                        }
+                        onClick={() =>
+                            dispatch(
+                                addProduct({
+                                    ...props,
+                                    count: 1,
+                                })
+                            )
+                        }
+                    >
+                        <img
+                            className="card__add-img"
+                            src={addButtonImg}
+                            alt="add"
+                            width={32}
+                            height={32}
+                        />
+                    </button>
                 </div>
-                <button
-                    type="button"
-                    className="card__add-btn"
-                    onMouseEnter={() =>
-                        addButtonImg === add ? setAddButtonImg(addHover) : null
-                    }
-                    onMouseLeave={() =>
-                        addButtonImg === addHover ? setAddButtonImg(add) : null
-                    }
-                    onClick={() =>
-                        dispatch(
-                            addProduct({
-                                ...props,
-                                count: 1,
-                            })
-                        )
-                    }
-                >
-                    <img
-                        className="card__add-img"
-                        src={addButtonImg}
-                        alt="add"
-                        width={32}
-                        height={32}
-                    />
-                </button>
+                {Boolean(count) && (
+                    <div className="row">
+                        <p>Количество: {count}</p>
+                    </div>
+                )}
             </div>
         </div>
     );
