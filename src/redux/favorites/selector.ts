@@ -1,3 +1,3 @@
 import { RootState } from "../store";
 
-export const selectFavorites = (state: RootState) => state.favorite;
+export const selectFavorites = (state: RootState) => state.favorites;
