@@ -1,5 +1,5 @@
 .slider {
-    margin: 45px 60px;
+    margin: 2.25rem 3rem;
     position: relative;
     height: 300px;
     .slider__move-forward {
@@ -10,5 +10,17 @@
         top: calc(50% - 17px);
         right: -17px;
         cursor: pointer;
+    }
+}
+
+@media (max-width: 1020px) {
+    .slider {
+        margin: 2.25rem 2rem;
+    }
+}
+
+@media (max-width: 745px) {
+    .slider {
+        display: none;
     }
 }

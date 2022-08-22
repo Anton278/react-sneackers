@@ -1,5 +1,5 @@
 .header {
-    padding: 45px;
+    padding: 2.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -53,4 +53,21 @@
 .hr {
     height: 1px;
     background-color: #eaeaea;
+}
+
+@media (max-width: 1020px) {
+    .header {
+        padding: 2.25rem 2rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .header {
+        padding: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        &__col:first-of-type {
+            margin-bottom: 2rem;
+        }
+    }
 }

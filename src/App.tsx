@@ -1,6 +1,4 @@
-import "./App.scss";
-
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -37,13 +35,11 @@ const App = () => {
     }, []);
 
     return (
-        <HashRouter>
-            <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/favorites" element={<FavoritesPage />} />
-                <Route path="/orders" element={<OrdersPage />} />
-            </Routes>
-        </HashRouter>
+        <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
+        </Routes>
     );
 };
 
